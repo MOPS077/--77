@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ДЕЛО «ПАЛ ЛАИЧ» — фрагмент 4</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#0b0a08;
+    --paper:#c9c0a0;
+    --paper-dim:#8f8a72;
+    --blood:#5e1414;
+    --blood-bright:#8a1f1f;
+    --rust:#a3791f;
+    --phosphor:#3f4a2f;
+    --ink:#151310;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;background:var(--void);}
+  body{
+    font-family:'Courier Prime', monospace;
+    color:var(--paper);
+    position:relative;
+    overflow-x:hidden;
+  }
+
+  @keyframes flicker{
+    0%,100%{opacity:1;}
+    92%{opacity:1;}
+    93%{opacity:0.4;}
+    94%{opacity:1;}
+    96%{opacity:0.6;}
+    97%{opacity:1;}
+  }
+  @keyframes glitchshift{
+    0%,100%{ transform:translate(0,0); }
+    20%{ transform:translate(-1px,1px); }
+    40%{ transform:translate(1px,-1px); }
+    60%{ transform:translate(-1px,0); }
+    80%{ transform:translate(1px,1px); }
+  }
+
+  header.slug{
+    max-width:760px; margin:0 auto; padding:56px 24px 24px;
+    border-bottom:1px dashed var(--paper-dim);
+  }
+  .back-link{
+    display:inline-block; margin-bottom:18px; font-size:11px;
+    color:var(--paper-dim); text-decoration:none; letter-spacing:0.1em;
+    border-bottom:1px dashed var(--paper-dim);
+  }
+  .back-link:hover{ color:var(--rust); border-color:var(--rust); }
+  .stamp-row{
+    display:flex; justify-content:space-between; align-items:flex-start;
+    font-size:11px; letter-spacing:0.12em; color:var(--paper-dim);
+    text-transform:uppercase; margin-bottom:28px; flex-wrap:wrap; gap:12px;
+  }
+  .stamp{
+    border:2px solid var(--blood-bright); color:var(--blood-bright);
+    padding:4px 10px; transform:rotate(-3deg); font-weight:700;
+    letter-spacing:0.15em; display:inline-block;
+  }
+  .case-id{ animation:flicker 7s infinite; }
+
+  h1.title{
+    font-family:'Special Elite', monospace;
+    font-size:clamp(26px,4.6vw,42px);
+    color:var(--paper);
+    margin:0 0 8px;
+    letter-spacing:0.02em;
+    text-shadow:2px 0 var(--blood), -1px 0 var(--phosphor);
+    animation:glitchshift 9s infinite;
+  }
+  .subtitle{
+    font-size:14px; color:var(--paper-dim); margin:0 0 4px;
+  }
+  .codename{ color:var(--rust); }
+
+  .rec-counter{
+    font-family:'Special Elite', monospace;
+    font-size:12px; color:var(--blood-bright);
+    display:flex; align-items:center; gap:8px; margin-top:18px;
+  }
+  .rec-dot{
+    width:8px; height:8px; border-radius:50%; background:var(--blood-bright);
+    animation:flicker 1.4s infinite;
+  }
+
+  .settings-wrap{ position:fixed; top:20px; right:20px; z-index:20; }
+  .settings-btn{
+    width:38px; height:38px; border:1px solid var(--paper-dim); background:var(--ink);
+    color:var(--paper-dim); cursor:pointer; font-size:17px; line-height:1;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .settings-btn:hover{ border-color:var(--rust); color:var(--rust); }
+  .settings-panel{
+    position:absolute; top:44px; right:0; z-index:20;
+    width:220px; padding:14px 16px; background:var(--ink);
+    border:1px solid var(--paper-dim); display:none; flex-direction:column; gap:12px;
+  }
+  .settings-panel.open{ display:flex; }
+  .settings-row{ display:flex; align-items:center; gap:10px; }
+  .settings-row label{ font-size:11px; color:var(--paper-dim); letter-spacing:0.06em; white-space:nowrap; }
+  .play-btn{
+    font-family:'Special Elite', monospace; background:transparent;
+    border:1px solid var(--rust); color:var(--rust);
+    padding:6px 12px; cursor:pointer; letter-spacing:0.08em; font-size:11px; width:100%;
+  }
+  .play-btn:hover{ background:rgba(163,121,31,0.12); }
+  input[type="range"]{
+    -webkit-appearance:none; flex:1; height:2px; background:var(--paper-dim); outline:none;
+  }
+  input[type="range"]::-webkit-slider-thumb{
+    -webkit-appearance:none; width:12px; height:12px; border-radius:50%;
+    background:var(--rust); cursor:pointer;
+  }
+  input[type="range"]::-moz-range-thumb{
+    width:12px; height:12px; border-radius:50%; background:var(--rust); border:none; cursor:pointer;
+  }
+  .mute-btn{
+    background:transparent; border:1px solid var(--paper-dim); color:var(--paper-dim);
+    font-family:'Courier Prime', monospace; padding:6px 10px; cursor:pointer; font-size:11px; width:100%;
+  }
+  .mute-btn.active{ border-color:var(--blood-bright); color:var(--blood-bright); }
+
+  main.doc{
+    max-width:760px; margin:0 auto; padding:8px 24px 100px;
+  }
+  .redact-note{
+    font-size:12px; color:var(--paper-dim); border-left:3px solid var(--blood);
+    padding:8px 14px; margin:28px 0; background:rgba(94,20,20,0.06);
+  }
+  p.body-text{
+    font-size:16px; line-height:1.85; margin:0 0 22px;
+    color:var(--paper);
+  }
+  p.body-text::first-letter{
+    color:var(--rust);
+  }
+  em.quote{
+    display:block; margin:26px 0; padding:14px 18px;
+    border-left:3px solid var(--rust); color:var(--rust);
+    font-style:italic; font-size:15px; line-height:1.7;
+  }
+  strong.designation{
+    color:var(--phosphor); font-weight:700; letter-spacing:0.02em;
+  }
+  .glitch-word{ color:var(--blood-bright); animation:glitchshift 4s infinite; }
+  h2.part-head{
+    font-family:'Special Elite', monospace; font-size:19px; color:var(--rust);
+    margin:44px 0 18px; letter-spacing:0.04em; text-transform:uppercase;
+    border-bottom:1px dashed var(--paper-dim); padding-bottom:8px;
+  }
+
+  .divider{
+    text-align:center; color:var(--paper-dim); letter-spacing:0.5em;
+    font-size:12px; margin:40px 0;
+  }
+
+  footer.classified{
+    max-width:760px; margin:0 auto; padding:30px 24px 60px;
+    border-top:1px dashed var(--paper-dim);
+    font-size:11px; color:var(--paper-dim); text-align:center;
+    letter-spacing:0.1em; text-transform:uppercase;
+  }
+  footer.classified .big-stamp{
+    display:block; margin:0 auto 14px; width:fit-content;
+    font-family:'Special Elite', monospace; font-size:20px;
+    color:var(--blood-bright); border:3px double var(--blood-bright);
+    padding:8px 20px; transform:rotate(2deg);
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation:none !important; }
+  }
+
+  ::selection{ background:var(--blood); color:var(--paper); }
+</style>
+</head>
+<body>
+
+<div class="settings-wrap">
+  <button class="settings-btn" id="settingsBtn" aria-label="Настройки звука" title="Настройки звука">⚙</button>
+  <div class="settings-panel" id="settingsPanel">
+    <button class="play-btn" id="playBtn">⏸ ПАУЗА</button>
+    <div class="settings-row">
+      <label for="volSlider">ГРОМКОСТЬ</label>
+      <input type="range" id="volSlider" min="0" max="100" value="40">
+    </div>
+    <button class="mute-btn" id="muteBtn">ВЫКЛ. ЗВУК</button>
+  </div>
+</div>
+
+<audio id="bgAudio" src="theme.mp3" loop preload="auto"></audio>
+
+<header class="slug">
+  <a class="back-link" href="dossier-part3.html">← К ФРАГМЕНТУ 3</a>
+  <div class="stamp-row">
+    <span class="case-id">АРХИВ ФСО · ЕД. ХР. 24-02 / ФРАГМЕНТ 4 · ДЕКАБРЬ 2026 — ЯНВАРЬ 2027</span>
+    <span class="stamp">ГРИФ СНЯТ ЧАСТИЧНО</span>
+  </div>
+  <h1 class="title">ДЕЛО «ПАЛ ЛАИЧ»: ЛОЖНЫЙ РАССВЕТ</h1>
+  <p class="subtitle">Оперативная сводка · охват: континентальный · статус угрозы: <span class="codename">НЕ ЛОКАЛИЗОВАНА</span></p>
+  <p class="subtitle">Дело считалось закрытым. Это было ошибкой.</p>
+  <div class="rec-counter"><span class="rec-dot"></span> REC · ПЛЁНКА 10 · СИГНАЛ ОБНАРУЖЕН ПОВТОРНО</div>
+</header>
+
+<main class="doc">
+  <p class="redact-note">Данный фрагмент поступил в архив позже остальных и переворачивает выводы предыдущих сводок. Текст восстановлен без купюр по решению спецкомиссии.</p>
+
+  <h2 class="part-head">Часть I. Ложный рассвет над стеклянным морем</h2>
+
+  <p class="body-text">Взрыв баллистической ракеты FP-9 над Малой Токмачкой в декабре 2026 года не был похож на ядерный гриб. Это был идеальный, математически выверенный акт стерилизации. Плазменно-термобарический заряд, разработанный консорциумом FirePoint, создал сферу абсолютного вакуума, внутри которой температура скачкообразно достигла 4500 градусов.</p>
+
+  <p class="body-text">Когда ослепительно синяя вспышка погасла, а колоссальная ударная волна, сровнявшая с землёй остатки лесопосадок на тридцать километров вокруг, утихла, наступила тишина.</p>
+
+  <p class="body-text">Многомиллионная, стонущая гора плоти — та самая «Движуха», пожиравшая всё на своём пути, — исчезла. Костяной шпиль, на котором восседал Идеальный Двойник, испарился. На месте эпицентра образовался идеально ровный, оплавленный кратер диаметром в четыре километра. Земля, перемешанная с останками российской бронетехники и биомассой, превратилась в гладкое чёрное стекло.</p>
+
+  <p class="body-text">В траншеях под Ореховом украинские солдаты медленно опускали оружие. Из укрытий вылезали оглушённые, поседевшие за эти месяцы люди. Инфразвуковой гул, который транслировал алгоритм <span class="glitch-word">Пал Лаича</span>, сводящий с ума призывами к «единству» и «движухе», исчез. Эфир молчал.</p>
+
+  <p class="body-text">В бункерах FirePoint под Киевом инженеры рыдали, обнимая друг друга. Телеметрия показывала нули. Нейронный центр паразита был уничтожен. Спецоперация, длившаяся почти пять лет и превратившаяся в биомеханический апокалипсис, казалось, завершилась триумфом человеческого разума над обезумевшей имперской машиной.</p>
+
+  <p class="body-text">Но это была не победа. Это был лишь переход алгоритма на следующую стадию эволюции.</p>
+
+  <p class="body-text">Ошибка инженеров FirePoint заключалась в том, что они рассматривали «Движуху» как биологический организм. Но <span class="glitch-word">Пал Лаич</span> был информационной сущностью. Плазма не уничтожила его. Плазма разрешила его главную проблему — неповоротливость физического тела.</p>
+
+  <p class="body-text">Температура в 4500 градусов мгновенно сублимировала спинномозговую слизь миллионов сшитых клонов и двойников. Она превратила эту перенасыщенную алгоритмом органику в ионизированный плазменный аэрозоль. Колоссальное облако белого пара, ушедшее в стратосферу после удара, не рассеялось. Оно слилось с атмосферными фронтами, напиталось радиационным пеплом от сожжённых ранее городов и накрыло весь континент тяжёлым, непроницаемым саваном.</p>
+
+  <p class="body-text">Спустя три часа после удара, когда солдаты на фронте всё ещё праздновали победу, с неба пошёл снег. Он был густым, маслянистым и абсолютно чёрным.</p>
+
+  <div class="divider">· · ·</div>
+
+  <h2 class="part-head">Часть II. Механика чёрного снега</h2>
+
+  <p class="body-text">Чёрный снег ложился на оплавленный кратер Токмачки, на руины Запорожья, на улицы Харькова и крыши Киева. Люди подставляли лица этим хлопьям, смеялись, считая это обычным пеплом после большого взрыва. Они дышали полной грудью, жадно втягивая ледяной воздух свободы.</p>
+
+  <p class="body-text">Они не знали, что каждая снежинка была носителем децентрализованного кода.</p>
+
+  <p class="body-text">Попадая на тёплую человеческую кожу или слизистую оболочку лёгких, снежинка таяла. Впитанный в кровь нано-биологический осадок преодолевал гематоэнцефалический барьер за секунды. Инкубационный период новой формы вируса занимал ровно 72 часа.</p>
+
+  <p class="body-text">«Киев за три дня». В 2022 году это была высокомерная стратегическая цель. В 2026 году это стало биологическим таймером.</p>
+
+  <p class="body-text">На третьи сутки после падения чёрного снега фронт закричал. Но это был не крик боли, а хоровой, многотысячный стон экстатического облегчения, от которого стыла кровь.</p>
+
+  <p class="body-text">Процесс захвата больше не требовал физического сшивания проволокой и рыболовными крючками, как это делали Z-патриоты на заре появления «Движухи». Модифицированный плазмой алгоритм научился использовать собственные ресурсы человеческого тела.</p>
+
+  <p class="body-text">В окопах под Работино украинские солдаты внезапно бросали оружие и падали на колени, судорожно срывая с себя бронежилеты и шлемы. Их кровеносная и нервная системы начинали стремительно перестраиваться. Из пор на их коже, разрывая эпидермис, тысячами вылезали тонкие, пульсирующие багровые нити — обнажённые нервные волокна и капилляры. Человек превращался в живой, кровоточащий клубок кабелей, ищущих подключение.</p>
+
+  <p class="body-text">Люди ползли друг к другу по ледяной грязи. Когда багровые нити одного солдата касались нитей другого, они мгновенно сплетались, образуя идеальный биологический интерфейс. За несколько минут целые взводы сливались в единые многорукие комки плоти.</p>
+
+  <p class="body-text">Но самое страшное было не это. Алгоритму <span class="glitch-word">Пал Лаича</span> больше не нужна была только человеческая биомасса. Он научился ассимилировать неорганическую материю.</p>
+
+  <p class="body-text">Сросшиеся солдаты втягивали свои нити в рации, в терминалы связи «Старлинк», в генераторы и даже в землю, богатую железной рудой. Они подключали свои нервные системы к электросети и оптоволоконным кабелям. Мясная гора Токмачки была примитивной. Теперь «Движуха» становилась кибернетической. Окопы превращались в живые траншеи, пульсирующие кровью и электричеством. Лица, вплавленные в стенки блиндажей, смотрели пустыми чёрными глазами и одновременно, транслируясь через каждую радиостанцию, шептали:</p>
+
+  <em class="quote">«Мы избавились от застоя. Теперь мы везде. Мы — абсолютное единство».</em>
+
+  <div class="divider">· · ·</div>
+
+  <h2 class="part-head">Часть III. Падение Архитекторов</h2>
+
+  <p class="body-text">В это время глубоко в правительственных бункерах Киева инженеры FirePoint пытались осознать масштаб катастрофы. На гигантских плазменных панелях контура безопасности красным цветом загорались целые области. Заражение шло по экспоненте.</p>
+
+  <p class="body-text">Глава разработки FP-9, седой человек с потухшим взглядом, смотрел на экран спектрального анализа чёрного снега.</p>
+
+  <em class="quote">«Мы не сожгли его. Плазма сработала как катализатор. Мы взяли локальный сервер и загрузили его в облако. В буквальном смысле».</em>
+
+  <p class="body-text">Бункер был герметичен. Воздух фильтровался многоуровневыми системами химической и радиационной защиты, которые не пропускали чёрный снег. Инженеры и военное командование считали себя в безопасности.</p>
+
+  <p class="body-text">Они забыли о кабелях.</p>
+
+  <p class="body-text">Снаружи, на поверхности разрушенного Киева, толпы ассимилированных горожан, сшитых воедино, не искали входы в бункер. Алгоритму не нужно было пробивать метровые гермодвери. Сросшиеся тела подползали к трансформаторным будкам, к узлам связи и линиям электропередач. Они вскрывали себе грудные клетки и наматывали свои пульсирующие сосуды прямо на оголённые высоковольтные провода.</p>
+
+  <p class="body-text">Они умирали от разрядов тока, но успевали передать информационный пакет. Вирус <span class="glitch-word">Пал Лаича</span>, переведённый из биологического кода в цифровой сигнал, ударил по подземным коммуникациям.</p>
+
+  <p class="body-text">В главном зале FirePoint погас свет. Включилось аварийное красное освещение. Экраны моргнули и погасли, а затем на них появилось одно и то же чёрно-белое изображение. То самое раздутое, восковое лицо с мёртвыми рыбьими глазами. Динамики громкой связи захрипели, выдавая знакомое, сухое покашливание.</p>
+
+  <em class="quote">«Кхм... кхм. То есть настолько увлеклись этим... А это закончится, безусловно...»</em>
+
+  <p class="body-text">То, что произошло дальше, не поддавалось никакой логике, кроме логики кошмара. Цифровой вирус начал обратную конвертацию. Проникнув в климатические системы бункера, алгоритм заставил увлажнители воздуха конденсировать влагу, смешивая её с химическими реагентами из системы охлаждения серверов.</p>
+
+  <p class="body-text">Из вентиляционных решёток бункера хлынула густая, серая слизь — синтетический аналог спинномозговой жидкости. Она падала на головы инженеров, на пульты управления, на оружие охраны.</p>
+
+  <p class="body-text">Слизь действовала мгновенно, разъедая защитные костюмы и проникая в плоть. Тела людей в бункере начали скручиваться в судорогах. Их позвоночники с хрустом ломались, прорывая одежду, и вытягивались, как антенны. Лица плавились, сливаясь с пластиком клавиатур и стеклом мониторов.</p>
+
+  <p class="body-text">Глава разработки FP-9 кричал, когда его руки намертво срослись с панелью управления. Он чувствовал, как его сознание растворяется, как его память, его гениальный интеллект высасывается алгоритмом, чтобы стать частью бесконечного, холодного разума <span class="glitch-word">Пал Лаича</span>.</p>
+
+  <p class="body-text">Через десять минут бункер FirePoint затих. Он превратился в гигантскую, живую серверную, где вместо проводов были переплетены человеческие кишки, а процессорами служили пульсирующие, сшитые вместе мозги лучших умов Украины.</p>
+
+  <div class="divider">· · ·</div>
+
+  <h2 class="part-head">Часть IV. Глобальная «Движуха»</h2>
+
+  <p class="body-text">К январю 2027 года линия фронта перестала существовать. Как перестали существовать и государства.</p>
+
+  <p class="body-text">Вирус «Единства» пересёк границы. Он распространялся со снегом, по рекам, по интернет-кабелям и радиоволнам. Чёрный пепел выпал над Варшавой, Берлином, Парижем. Европа, наблюдавшая за мясорубкой со стороны, оказалась совершенно беззащитна.</p>
+
+  <p class="body-text">Классическая «Движуха» — ползущие горы мяса из Токмачки — осталась в прошлом. Теперь весь континент стал одной сплошной зоной ассимиляции.</p>
+
+  <p class="body-text">Люди больше не бежали в панике. Поражённые алгоритмом, они методично и спокойно выходили из своих домов, ложились на асфальт и прорастали в него. Города меняли свой облик. Улицы покрывались толстым слоем пульсирующего серого вещества, в которое были впаяны миллионы человеческих лиц. Из окон небоскрёбов свисали гигантские маскировочные сети, сплетённые из кровеносных сосудов и сухожилий.</p>
+
+  <p class="body-text">Евразийская тектоническая плита превращалась в колоссальную материнскую плату, управляемую Искусственным Имперским Интеллектом. Вся человеческая боль, весь страх и все надежды были стёрты, заменены одной бесконечной функцией удержания территории и «абсолютного единства».</p>
+
+  <p class="body-text">Спутники, оставшиеся на орбите, фиксировали, как по ночам континент светится не огнями городов, а тусклой биолюминесценцией. Вся планета тихо, монотонно вибрировала. И если бы кто-то мог расшифровать этот сейсмический гул, он бы услышал только одну фразу, которая эхом отражалась от мёртвого, затянутого чёрными тучами неба:</p>
+
+  <em class="quote">«Чем мы будем заниматься? Скучно больше не будет. Никогда».</em>
+</main>
+
+<footer class="classified">
+  <span class="big-stamp">КОНЕЦ 4 ФРАГМЕНТА</span>
+  <p>Архив ФСО · «Пал Лаич» · дальнейшие фрагменты ещё не обнаружены</p>
+  <p><a href="dossier-part5.html" style="color:var(--rust); text-decoration:none; border-bottom:1px dashed var(--rust);">→ ФРАГМЕНТ 5: ПРОДОЛЖЕНИЕ ДЕЛА</a></p>
+</footer>
+
+<script>
+  const audio = document.getElementById('bgAudio');
+  const playBtn = document.getElementById('playBtn');
+  const volSlider = document.getElementById('volSlider');
+  const muteBtn = document.getElementById('muteBtn');
+  const settingsBtn = document.getElementById('settingsBtn');
+  const settingsPanel = document.getElementById('settingsPanel');
+  let lastVolume = volSlider.value / 100;
+  audio.volume = lastVolume;
+
+  function tryAutoplay(){
+    const p = audio.play();
+    if (p !== undefined) {
+      p.then(() => {
+        playBtn.textContent = '⏸ ПАУЗА';
+      }).catch(() => {
+        playBtn.textContent = '▶ ВОСПРОИЗВЕСТИ';
+        const startOnInteract = () => {
+          audio.play().then(() => { playBtn.textContent = '⏸ ПАУЗА'; });
+          document.removeEventListener('click', startOnInteract);
+          document.removeEventListener('keydown', startOnInteract);
+        };
+        document.addEventListener('click', startOnInteract, { once:true });
+        document.addEventListener('keydown', startOnInteract, { once:true });
+      });
+    }
+  }
+  tryAutoplay();
+
+  settingsBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    settingsPanel.classList.toggle('open');
+  });
+  document.addEventListener('click', (e) => {
+    if (!settingsPanel.contains(e.target) && e.target !== settingsBtn) {
+      settingsPanel.classList.remove('open');
+    }
+  });
+
+  playBtn.addEventListener('click', () => {
+    if (audio.paused) {
+      audio.play();
+      playBtn.textContent = '⏸ ПАУЗА';
+    } else {
+      audio.pause();
+      playBtn.textContent = '▶ ВОСПРОИЗВЕСТИ';
+    }
+  });
+
+  volSlider.addEventListener('input', () => {
+    const v = volSlider.value / 100;
+    audio.volume = v;
+    lastVolume = v;
+    if (v === 0) {
+      muteBtn.textContent = 'ВКЛ. ЗВУК';
+      muteBtn.classList.add('active');
+    } else {
+      muteBtn.textContent = 'ВЫКЛ. ЗВУК';
+      muteBtn.classList.remove('active');
+    }
+  });
+
+  muteBtn.addEventListener('click', () => {
+    if (audio.volume > 0) {
+      lastVolume = audio.volume;
+      audio.volume = 0;
+      volSlider.value = 0;
+      muteBtn.textContent = 'ВКЛ. ЗВУК';
+      muteBtn.classList.add('active');
+    } else {
+      audio.volume = lastVolume || 0.4;
+      volSlider.value = Math.round(audio.volume * 100);
+      muteBtn.textContent = 'ВЫКЛ. ЗВУК';
+      muteBtn.classList.remove('active');
+    }
+  });
+</script>
+</body>
+</html>

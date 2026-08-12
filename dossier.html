@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ДЕЛО «ПАЛ ЛАИЧ» — рассекреченный архив</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#0b0a08;
+    --paper:#c9c0a0;
+    --paper-dim:#8f8a72;
+    --blood:#5e1414;
+    --blood-bright:#8a1f1f;
+    --rust:#a3791f;
+    --phosphor:#3f4a2f;
+    --ink:#151310;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;background:var(--void);}
+  body{
+    font-family:'Courier Prime', monospace;
+    color:var(--paper);
+    position:relative;
+    overflow-x:hidden;
+  }
+
+  @keyframes flicker{
+    0%,100%{opacity:1;}
+    92%{opacity:1;}
+    93%{opacity:0.4;}
+    94%{opacity:1;}
+    96%{opacity:0.6;}
+    97%{opacity:1;}
+  }
+  @keyframes glitchshift{
+    0%,100%{ transform:translate(0,0); }
+    20%{ transform:translate(-1px,1px); }
+    40%{ transform:translate(1px,-1px); }
+    60%{ transform:translate(-1px,0); }
+    80%{ transform:translate(1px,1px); }
+  }
+
+  header.slug{
+    max-width:760px; margin:0 auto; padding:56px 24px 24px;
+    border-bottom:1px dashed var(--paper-dim);
+  }
+  .stamp-row{
+    display:flex; justify-content:space-between; align-items:flex-start;
+    font-size:11px; letter-spacing:0.12em; color:var(--paper-dim);
+    text-transform:uppercase; margin-bottom:28px; flex-wrap:wrap; gap:12px;
+  }
+  .stamp{
+    border:2px solid var(--blood-bright); color:var(--blood-bright);
+    padding:4px 10px; transform:rotate(-3deg); font-weight:700;
+    letter-spacing:0.15em; display:inline-block;
+  }
+  .case-id{ animation:flicker 7s infinite; }
+
+  h1.title{
+    font-family:'Special Elite', monospace;
+    font-size:clamp(28px,5vw,46px);
+    color:var(--paper);
+    margin:0 0 8px;
+    letter-spacing:0.02em;
+    text-shadow:2px 0 var(--blood), -1px 0 var(--phosphor);
+    animation:glitchshift 9s infinite;
+  }
+  .subtitle{
+    font-size:14px; color:var(--paper-dim); margin:0 0 4px;
+  }
+  .codename{ color:var(--rust); }
+
+  .rec-counter{
+    font-family:'Special Elite', monospace;
+    font-size:12px; color:var(--blood-bright);
+    display:flex; align-items:center; gap:8px; margin-top:18px;
+  }
+  .rec-dot{
+    width:8px; height:8px; border-radius:50%; background:var(--blood-bright);
+    animation:flicker 1.4s infinite;
+  }
+
+  .tape-module{
+    max-width:760px; margin:36px auto; padding:20px;
+    border:1px solid var(--paper-dim); background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.2));
+    position:relative;
+  }
+  .tape-header{
+    display:flex; justify-content:space-between; align-items:center;
+    font-size:11px; letter-spacing:0.14em; text-transform:uppercase;
+    color:var(--paper-dim); margin-bottom:12px;
+  }
+  .tape-header .restored{ color:var(--phosphor); animation:flicker 5s infinite; }
+  .tape-caption{
+    margin-top:10px; font-size:11px; color:var(--paper-dim); letter-spacing:0.06em;
+  }
+  .settings-wrap{ position:fixed; top:20px; right:20px; z-index:20; }
+  .settings-btn{
+    width:38px; height:38px; border:1px solid var(--paper-dim); background:var(--ink);
+    color:var(--paper-dim); cursor:pointer; font-size:17px; line-height:1;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .settings-btn:hover{ border-color:var(--rust); color:var(--rust); }
+  .settings-panel{
+    position:absolute; top:44px; right:0; z-index:20;
+    width:220px; padding:14px 16px; background:var(--ink);
+    border:1px solid var(--paper-dim); display:none; flex-direction:column; gap:12px;
+  }
+  .settings-panel.open{ display:flex; }
+  .settings-row{ display:flex; align-items:center; gap:10px; }
+  .settings-row label{ font-size:11px; color:var(--paper-dim); letter-spacing:0.06em; white-space:nowrap; }
+  .play-btn{
+    font-family:'Special Elite', monospace; background:transparent;
+    border:1px solid var(--rust); color:var(--rust);
+    padding:6px 12px; cursor:pointer; letter-spacing:0.08em; font-size:11px; width:100%;
+  }
+  .play-btn:hover{ background:rgba(163,121,31,0.12); }
+  input[type="range"]{
+    -webkit-appearance:none; flex:1; height:2px; background:var(--paper-dim); outline:none;
+  }
+  input[type="range"]::-webkit-slider-thumb{
+    -webkit-appearance:none; width:12px; height:12px; border-radius:50%;
+    background:var(--rust); cursor:pointer;
+  }
+  input[type="range"]::-moz-range-thumb{
+    width:12px; height:12px; border-radius:50%; background:var(--rust); border:none; cursor:pointer;
+  }
+  .mute-btn{
+    background:transparent; border:1px solid var(--paper-dim); color:var(--paper-dim);
+    font-family:'Courier Prime', monospace; padding:6px 10px; cursor:pointer; font-size:11px; width:100%;
+  }
+  .mute-btn.active{ border-color:var(--blood-bright); color:var(--blood-bright); }
+
+  main.doc{
+    max-width:760px; margin:0 auto; padding:8px 24px 100px;
+  }
+  .redact-note{
+    font-size:12px; color:var(--paper-dim); border-left:3px solid var(--blood);
+    padding:8px 14px; margin:28px 0; background:rgba(94,20,20,0.06);
+  }
+  p.body-text{
+    font-size:16px; line-height:1.85; margin:0 0 22px;
+    color:var(--paper);
+  }
+  p.body-text::first-letter{
+    color:var(--rust);
+  }
+  em.quote{
+    display:block; margin:26px 0; padding:14px 18px;
+    border-left:3px solid var(--rust); color:var(--rust);
+    font-style:italic; font-size:15px; line-height:1.7;
+  }
+  .glitch-word{ color:var(--blood-bright); animation:glitchshift 4s infinite; }
+
+  .divider{
+    text-align:center; color:var(--paper-dim); letter-spacing:0.5em;
+    font-size:12px; margin:40px 0;
+  }
+
+  footer.classified{
+    max-width:760px; margin:0 auto; padding:30px 24px 60px;
+    border-top:1px dashed var(--paper-dim);
+    font-size:11px; color:var(--paper-dim); text-align:center;
+    letter-spacing:0.1em; text-transform:uppercase;
+  }
+  footer.classified .big-stamp{
+    display:block; margin:0 auto 14px; width:fit-content;
+    font-family:'Special Elite', monospace; font-size:20px;
+    color:var(--blood-bright); border:3px double var(--blood-bright);
+    padding:8px 20px; transform:rotate(2deg);
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation:none !important; }
+  }
+
+  ::selection{ background:var(--blood); color:var(--paper); }
+</style>
+</head>
+<body>
+
+<header class="slug">
+  <div class="stamp-row">
+    <span class="case-id">АРХИВ ФСО · ЕД. ХР. 24-02 / ВОССТАНОВЛЕНО 2026</span>
+    <span class="stamp">СОВ. СЕКРЕТНО</span>
+  </div>
+  <h1 class="title">ДЕЛО «ПАЛ ЛАИЧ»</h1>
+  <p class="subtitle">Оперативная сводка · носитель: Ново-Огарёво · статус объекта: <span class="codename">УТРАЧЕН</span></p>
+  <p class="subtitle">Гриф снят частично. Часть страниц реконструирована по обгоревшим фрагментам.</p>
+  <div class="rec-counter"><span class="rec-dot"></span> REC · ПЛЁНКА 07 · ВОСПРОИЗВЕДЕНИЕ С ПОМЕХАМИ</div>
+</header>
+
+<div class="settings-wrap">
+  <button class="settings-btn" id="settingsBtn" aria-label="Настройки звука" title="Настройки звука">⚙</button>
+  <div class="settings-panel" id="settingsPanel">
+    <button class="play-btn" id="playBtn">⏸ ПАУЗА</button>
+    <div class="settings-row">
+      <label for="volSlider">ГРОМКОСТЬ</label>
+      <input type="range" id="volSlider" min="0" max="100" value="40">
+    </div>
+    <button class="mute-btn" id="muteBtn">ВЫКЛ. ЗВУК</button>
+  </div>
+</div>
+
+<audio id="bgAudio" src="theme.mp3" loop preload="auto"></audio>
+
+<main class="doc">
+  <p class="redact-note">Ниже — полный текст сводки, восстановленный из архивных источников. Часть формулировок оставлена без купюр по решению спецкомиссии.</p>
+
+  <p class="body-text">Многие историки до сих пор бьются над загадкой длинного стола. В 2020-х годах, когда мир охватила пандемия, президент России изолировался в бункере в Ново-Огарёво и принимал мировых лидеров — Макрона, Шольца — за нелепо гигантским белым столом. Официально это объясняли страхом перед вирусом. Неофициально шептались о паранойе.</p>
+
+  <p class="body-text">Правда была куда страшнее. Стол был физическим барьером. Последней попыткой удержать внутри то, что пыталось вырваться наружу.</p>
+
+  <p class="body-text">Годами в кремлёвских стенах вызревал информационно-нейронный паразит. Сущность, сотканная из веков имперского ресентимента, чекистской паранойи и подавленной жестокости миллионов. В закрытых отчётах ФСО, которые позже сгорят в архивах, эту аномалию называли кодовым именем «<span class="glitch-word">Пал Лаич</span>». Это был не человек. Это был хищный, бестелесный эгрегор, алгоритм абсолютной власти, которому требовался биологический носитель.</p>
+
+  <p class="body-text"><span class="glitch-word">Пал Лаич</span> выбрал Путина.</p>
+
+  <p class="body-text">Процесс захвата разума длился годами. Этим объяснялись странные заминки в речи, судорожные вцепления в край стола на совещаниях, покашливания и тяжёлый взгляд остекленевших глаз. Настоящий человек внутри отчаянно сопротивлялся. Он читал архивы, изолировал себя, пытался сохранить остатки собственной личности, понимая, что если паразит победит — мир умоется кровью.</p>
+
+  <p class="body-text">Его воля сломалась ранним утром 24 февраля 2022 года.</p>
+
+  <p class="body-text">В 04:00 по московскому времени в кабинете бункера раздался влажный, тошнотворный хруст. Это не ломались кости — это порвались последние нейронные связи человеческого сознания. Физическое тело обмякло в кресле, а затем резко, неестественно выпрямилось. Лицо разгладилось, приобретя пугающую, восковую симметрию. Глаза стали абсолютно чёрными, пустыми колодцами. <span class="glitch-word">Пал Лаич</span> окончательно завладел носителем.</p>
+
+  <p class="body-text">Спустя час это тело вышло в эфир с обращением. «Специальная военная операция». Алгоритму паразита нужна была пища. Ему нужен был Киев. И он отвёл на это три дня.</p>
+
+  <div class="divider">· · ·</div>
+
+  <p class="body-text">Но Украина не пала ни за три дня, ни за три года.</p>
+
+  <p class="body-text">Началась мясорубка. К 2025 году война перешла в стадию тотального истощения. Украинские спецслужбы изменили тактику. Вглубь России полетели рои дальнобойных дронов — тяжёлые БПЛА «Лютый» и новые ракеты «Фламинго». Они методично, ночь за ночью, выжигали кровеносную систему империи: нефтеперерабатывающие заводы. Пылали Рязань, Туапсе, Нижнекамск, Сызрань.</p>
+
+  <p class="body-text">К 2026 году логистика рухнула. В России начался тихий, парализующий дефицит бензина. Никто не бегал с монтировками — города просто медленно и страшно замерли. Фуры не выходили в рейсы. На фронте, в районе Работино и Малой Токмачки, тысячи танков превратились в ледяные, сухие гробы. Снабжать армию стало невозможно.</p>
+
+  <p class="body-text">Тело-носитель <span class="glitch-word">Пал Лаича</span> к тому времени начало физически разлагаться. Чтобы управлять страной, в подземных лабораториях Валдая давно запустили проект двойников. Биомасса, выращенная в автоклавах и хирургически подогнанная под оригинал. Их накачивали филлерами (из-за чего их лица казались раздутыми, за что в народе их прозвали «Банкетными»), удаляли лобные доли и отправляли на публичные мероприятия.</p>
+
+  <p class="body-text">Когда военная логистика встала, <span class="glitch-word">Пал Лаич</span> реквизировал гражданскую инфраструктуру. Гигантские, фиолетовые склады маркетплейса Wildberries по всей стране были превращены в инкубаторы и перевалочные базы. В этих ангарах стояли тысячи стеклянных капсул, где в питательной слизи зрели не только новые двойники, но и миллионы генетически модифицированных, лишённых чувства боли клонов-солдат.</p>
+
+  <p class="body-text">Летом 2026 года Украина нанесла обезглавливающий удар. Массированный налёт БПЛА стёр с лица земли центральные хабы Wildberries под Москвой и Санкт-Петербургом. Небо заволокло фиолетовым пеплом и тошнотворным запахом горелого формалина и плавящегося мяса. Стратегический резерв биоматериала был уничтожен.</p>
+
+  <p class="body-text">В ту ночь на всех экранах страны, перебивая телеэфир, появилось лицо <span class="glitch-word">Пал Лаича</span>. Сквозь фильтры было видно, как под кожей двойника шевелятся чёрные черви некроза. Он произнёс фразу, которая стала концом человечества на этой территории:</p>
+
+  <em class="quote">«Нам скучно… застой. Хочется движухи. А это закончится, безусловно… Но нам нужно вот это чувство единства сохранить. Абсолютного единства».</em>
+
+  <p class="body-text"><span class="glitch-word">Пал Лаич</span> понял, что разделённые тела слабы. Что индивидуальность — это уязвимость.</p>
+
+  <p class="body-text">Запустился протокол «Движуха».</p>
+
+  <p class="body-text">Вирус покорности, транслируемый через экраны, сорвал ментальные блоки у миллионов людей, до последнего веривших телевизору. Z-патриоты, лишившись обогрева и еды, выходили на площади замёрзших городов. Они не бунтовали. Они выполняли приказ об объединении.</p>
+
+  <p class="body-text">Это происходило в абсолютной, жуткой тишине. Люди снимали одежду, доставали кухонные ножи, рыболовные крючки, строительные степлеры. Они подходили друг к другу и начинали срезать с себя лоскуты кожи, пришивая свои кровеносные сосуды к сосудам соседа. Биологический вирус, распылённый <span class="glitch-word">Пал Лаичем</span>, заставлял ткани мгновенно срастаться.</p>
+
+  <p class="body-text">Они сплетались в гигантские, стонущие от невыносимой боли горы плоти. Сотни, тысячи людей сливались в единых, бесформенных многоногих червей. Лица впаивались в спины, руки срастались с чужими рёбрами. Эта колоссальная, пульсирующая масса мяса, состоящая из миллионов сшитых граждан, и стала называться «Движухой».</p>
+
+  <p class="body-text">Стариков, чьё мясо было слишком дряблым для слияния, «Движуха» использовала иначе. Вспомнив слова о том, что «женщины сети плетут, а дети варежки», биомасса сгоняла выживших пенсионеров на заброшенные стадионы. Старикам не давали ниток. Трясущимися, искривлёнными полиартритом пальцами они вырывали друг у друга седые волосы и вытягивали из собственных ног вздутые вены, сплетая из них гигантские, кровоточащие маскировочные сети для укрытия «Движухи» от украинских дронов. Те, кто падал от истощения, мгновенно поглощались ползающей рядом мясной горой.</p>
+
+  <p class="body-text">К осени 2026 года Россия опустела. Города стояли мёртвыми, заваленными фиолетовым пеплом. А к границе с Украиной, ломая леса и оставляя за собой борозды из гноя и сукровицы, ползла Движуха. Миллионы сшитых воедино тел, объединённых одним разумом <span class="glitch-word">Пал Лаича</span>. Из этой горы торчали тысячи вросших в мясо пулемётов, стволов танков и ржавых труб.</p>
+
+  <p class="body-text">Они пересекли границу. Украина, ожидавшая танковых клиньев, столкнулась с лавиной чистого, безумного биохоррора. Дроны «Фламинго» жгли эту массу фосфором, артиллерия разрывала куски плоти размером с дом, но «Движуха» не останавливалась. Оторванные куски с влажным чавканьем прирастали обратно. Из миллионов сросшихся ртов, захлёбывающихся чёрной кровью, нёсся единый, сводящий с ума инфразвуковой гул:</p>
+
+  <em class="quote">«Гооооойдааа… Киев за три дня… Единство… Движуха…»</em>
+
+  <p class="body-text">Их главной целью стала Малая Токмачка — крошечное село, где в 2023 году сгорели элитные колонны российской бронетехники. Для алгоритма <span class="glitch-word">Пал Лаича</span> это место стало незакрытым гештальтом, чёрной дырой в коде.</p>
+
+  <p class="body-text">Когда гигантский вал сшитой плоти рухнул на Малую Токмачку, земля застонала. Траншеи и укрепления ВСУ залило живым мясом. Украинские солдаты стреляли в упор, пока стволы не плавились, но биомасса просто обволакивала их, мгновенно вживляя в себя. Человек исчезал в этой горе, и через секунду его лицо уже выныривало на поверхности мяса, искажённое параличом и кричащее: «Киев за три дня!»</p>
+
+  <p class="body-text">Малая Токмачка не была захвачена. Она стала эпицентром, куда стянулась вся биомасса. Там, в огромном кратере из трупов и сгоревших танков, Движуха начала строить из человеческих костей и сухожилий гигантскую антенну. Антенну, которая должна была транслировать вирус «Единства» на весь остальной мир.</p>
+
+  <p class="body-text">На вершине этого шпиля из черепов, подключённый к миллиардам оголённых нервов, восседал последний, идеально сохранившийся двойник. Он медленно открыл чёрные глаза, посмотрел на полыхающий на горизонте Киев, который так и не сдался за три дня, и тихо, удовлетворённо покашлял.</p>
+
+  <p class="body-text">Скучно больше не было. Движуха только начиналась.</p>
+</main>
+
+<footer class="classified">
+  <span class="big-stamp">КОНЕЦ ФРАГМЕНТА</span>
+  <p>Дело передано в архив спецкомиссии · дальнейшее хранение не гарантировано</p>
+  <p><a href="dossier-part2.html" style="color:var(--rust); text-decoration:none; border-bottom:1px dashed var(--rust);">→ ФРАГМЕНТ 2: ПРОДОЛЖЕНИЕ ДЕЛА</a></p>
+</footer>
+
+<script>
+  const audio = document.getElementById('bgAudio');
+  const playBtn = document.getElementById('playBtn');
+  const volSlider = document.getElementById('volSlider');
+  const muteBtn = document.getElementById('muteBtn');
+  const settingsBtn = document.getElementById('settingsBtn');
+  const settingsPanel = document.getElementById('settingsPanel');
+  let lastVolume = volSlider.value / 100;
+  audio.volume = lastVolume;
+
+  function tryAutoplay(){
+    const p = audio.play();
+    if (p !== undefined) {
+      p.then(() => {
+        playBtn.textContent = '⏸ ПАУЗА';
+      }).catch(() => {
+        playBtn.textContent = '▶ ВОСПРОИЗВЕСТИ';
+        const startOnInteract = () => {
+          audio.play().then(() => { playBtn.textContent = '⏸ ПАУЗА'; });
+          document.removeEventListener('click', startOnInteract);
+          document.removeEventListener('keydown', startOnInteract);
+        };
+        document.addEventListener('click', startOnInteract, { once:true });
+        document.addEventListener('keydown', startOnInteract, { once:true });
+      });
+    }
+  }
+  tryAutoplay();
+
+  settingsBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    settingsPanel.classList.toggle('open');
+  });
+  document.addEventListener('click', (e) => {
+    if (!settingsPanel.contains(e.target) && e.target !== settingsBtn) {
+      settingsPanel.classList.remove('open');
+    }
+  });
+
+  playBtn.addEventListener('click', () => {
+    if (audio.paused) {
+      audio.play();
+      playBtn.textContent = '⏸ ПАУЗА';
+    } else {
+      audio.pause();
+      playBtn.textContent = '▶ ВОСПРОИЗВЕСТИ';
+    }
+  });
+
+  volSlider.addEventListener('input', () => {
+    const v = volSlider.value / 100;
+    audio.volume = v;
+    lastVolume = v;
+    if (v === 0) {
+      muteBtn.textContent = 'ВКЛ. ЗВУК';
+      muteBtn.classList.add('active');
+    } else {
+      muteBtn.textContent = 'ВЫКЛ. ЗВУК';
+      muteBtn.classList.remove('active');
+    }
+  });
+
+  muteBtn.addEventListener('click', () => {
+    if (audio.volume > 0) {
+      lastVolume = audio.volume;
+      audio.volume = 0;
+      volSlider.value = 0;
+      muteBtn.textContent = 'ВКЛ. ЗВУК';
+      muteBtn.classList.add('active');
+    } else {
+      audio.volume = lastVolume || 0.4;
+      volSlider.value = Math.round(audio.volume * 100);
+      muteBtn.textContent = 'ВЫКЛ. ЗВУК';
+      muteBtn.classList.remove('active');
+    }
+  });
+</script>
+</body>
+</html>

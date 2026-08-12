@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ДЕЛО «ПАЛ ЛАИЧ» — фрагмент 3</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#0b0a08;
+    --paper:#c9c0a0;
+    --paper-dim:#8f8a72;
+    --blood:#5e1414;
+    --blood-bright:#8a1f1f;
+    --rust:#a3791f;
+    --phosphor:#3f4a2f;
+    --ink:#151310;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;background:var(--void);}
+  body{
+    font-family:'Courier Prime', monospace;
+    color:var(--paper);
+    position:relative;
+    overflow-x:hidden;
+  }
+
+  @keyframes flicker{
+    0%,100%{opacity:1;}
+    92%{opacity:1;}
+    93%{opacity:0.4;}
+    94%{opacity:1;}
+    96%{opacity:0.6;}
+    97%{opacity:1;}
+  }
+  @keyframes glitchshift{
+    0%,100%{ transform:translate(0,0); }
+    20%{ transform:translate(-1px,1px); }
+    40%{ transform:translate(1px,-1px); }
+    60%{ transform:translate(-1px,0); }
+    80%{ transform:translate(1px,1px); }
+  }
+
+  header.slug{
+    max-width:760px; margin:0 auto; padding:56px 24px 24px;
+    border-bottom:1px dashed var(--paper-dim);
+  }
+  .back-link{
+    display:inline-block; margin-bottom:18px; font-size:11px;
+    color:var(--paper-dim); text-decoration:none; letter-spacing:0.1em;
+    border-bottom:1px dashed var(--paper-dim);
+  }
+  .back-link:hover{ color:var(--rust); border-color:var(--rust); }
+  .stamp-row{
+    display:flex; justify-content:space-between; align-items:flex-start;
+    font-size:11px; letter-spacing:0.12em; color:var(--paper-dim);
+    text-transform:uppercase; margin-bottom:28px; flex-wrap:wrap; gap:12px;
+  }
+  .stamp{
+    border:2px solid var(--blood-bright); color:var(--blood-bright);
+    padding:4px 10px; transform:rotate(-3deg); font-weight:700;
+    letter-spacing:0.15em; display:inline-block;
+  }
+  .case-id{ animation:flicker 7s infinite; }
+
+  h1.title{
+    font-family:'Special Elite', monospace;
+    font-size:clamp(26px,4.6vw,42px);
+    color:var(--paper);
+    margin:0 0 8px;
+    letter-spacing:0.02em;
+    text-shadow:2px 0 var(--blood), -1px 0 var(--phosphor);
+    animation:glitchshift 9s infinite;
+  }
+  .subtitle{
+    font-size:14px; color:var(--paper-dim); margin:0 0 4px;
+  }
+  .codename{ color:var(--rust); }
+
+  .rec-counter{
+    font-family:'Special Elite', monospace;
+    font-size:12px; color:var(--blood-bright);
+    display:flex; align-items:center; gap:8px; margin-top:18px;
+  }
+  .rec-dot{
+    width:8px; height:8px; border-radius:50%; background:var(--blood-bright);
+    animation:flicker 1.4s infinite;
+  }
+
+  .settings-wrap{ position:fixed; top:20px; right:20px; z-index:20; }
+  .settings-btn{
+    width:38px; height:38px; border:1px solid var(--paper-dim); background:var(--ink);
+    color:var(--paper-dim); cursor:pointer; font-size:17px; line-height:1;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .settings-btn:hover{ border-color:var(--rust); color:var(--rust); }
+  .settings-panel{
+    position:absolute; top:44px; right:0; z-index:20;
+    width:220px; padding:14px 16px; background:var(--ink);
+    border:1px solid var(--paper-dim); display:none; flex-direction:column; gap:12px;
+  }
+  .settings-panel.open{ display:flex; }
+  .settings-row{ display:flex; align-items:center; gap:10px; }
+  .settings-row label{ font-size:11px; color:var(--paper-dim); letter-spacing:0.06em; white-space:nowrap; }
+  .play-btn{
+    font-family:'Special Elite', monospace; background:transparent;
+    border:1px solid var(--rust); color:var(--rust);
+    padding:6px 12px; cursor:pointer; letter-spacing:0.08em; font-size:11px; width:100%;
+  }
+  .play-btn:hover{ background:rgba(163,121,31,0.12); }
+  input[type="range"]{
+    -webkit-appearance:none; flex:1; height:2px; background:var(--paper-dim); outline:none;
+  }
+  input[type="range"]::-webkit-slider-thumb{
+    -webkit-appearance:none; width:12px; height:12px; border-radius:50%;
+    background:var(--rust); cursor:pointer;
+  }
+  input[type="range"]::-moz-range-thumb{
+    width:12px; height:12px; border-radius:50%; background:var(--rust); border:none; cursor:pointer;
+  }
+  .mute-btn{
+    background:transparent; border:1px solid var(--paper-dim); color:var(--paper-dim);
+    font-family:'Courier Prime', monospace; padding:6px 10px; cursor:pointer; font-size:11px; width:100%;
+  }
+  .mute-btn.active{ border-color:var(--blood-bright); color:var(--blood-bright); }
+
+  main.doc{
+    max-width:760px; margin:0 auto; padding:8px 24px 100px;
+  }
+  .redact-note{
+    font-size:12px; color:var(--paper-dim); border-left:3px solid var(--blood);
+    padding:8px 14px; margin:28px 0; background:rgba(94,20,20,0.06);
+  }
+  p.body-text{
+    font-size:16px; line-height:1.85; margin:0 0 22px;
+    color:var(--paper);
+  }
+  p.body-text::first-letter{
+    color:var(--rust);
+  }
+  em.quote{
+    display:block; margin:26px 0; padding:14px 18px;
+    border-left:3px solid var(--rust); color:var(--rust);
+    font-style:italic; font-size:15px; line-height:1.7;
+  }
+  strong.designation{
+    color:var(--phosphor); font-weight:700; letter-spacing:0.02em;
+  }
+  .glitch-word{ color:var(--blood-bright); animation:glitchshift 4s infinite; }
+  h2.month{
+    font-family:'Special Elite', monospace; font-size:20px; color:var(--rust);
+    margin:44px 0 18px; letter-spacing:0.06em; text-transform:uppercase;
+    border-bottom:1px dashed var(--paper-dim); padding-bottom:8px;
+  }
+
+  .divider{
+    text-align:center; color:var(--paper-dim); letter-spacing:0.5em;
+    font-size:12px; margin:40px 0;
+  }
+
+  footer.classified{
+    max-width:760px; margin:0 auto; padding:30px 24px 60px;
+    border-top:1px dashed var(--paper-dim);
+    font-size:11px; color:var(--paper-dim); text-align:center;
+    letter-spacing:0.1em; text-transform:uppercase;
+  }
+  footer.classified .big-stamp{
+    display:block; margin:0 auto 14px; width:fit-content;
+    font-family:'Special Elite', monospace; font-size:20px;
+    color:var(--blood-bright); border:3px double var(--blood-bright);
+    padding:8px 20px; transform:rotate(2deg);
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation:none !important; }
+  }
+
+  ::selection{ background:var(--blood); color:var(--paper); }
+</style>
+</head>
+<body>
+
+<div class="settings-wrap">
+  <button class="settings-btn" id="settingsBtn" aria-label="Настройки звука" title="Настройки звука">⚙</button>
+  <div class="settings-panel" id="settingsPanel">
+    <button class="play-btn" id="playBtn">⏸ ПАУЗА</button>
+    <div class="settings-row">
+      <label for="volSlider">ГРОМКОСТЬ</label>
+      <input type="range" id="volSlider" min="0" max="100" value="40">
+    </div>
+    <button class="mute-btn" id="muteBtn">ВЫКЛ. ЗВУК</button>
+  </div>
+</div>
+
+<audio id="bgAudio" src="theme.mp3" loop preload="auto"></audio>
+
+<header class="slug">
+  <a class="back-link" href="dossier-part2.html">← К ФРАГМЕНТУ 2</a>
+  <div class="stamp-row">
+    <span class="case-id">АРХИВ ФСО · ЕД. ХР. 24-02 / ФРАГМЕНТ 3 · ОКТЯБРЬ–ДЕКАБРЬ 2026</span>
+    <span class="stamp">СОВ. СЕКРЕТНО</span>
+  </div>
+  <h1 class="title">ДЕЛО «ПАЛ ЛАИЧ»: СУДНЫЙ ДЕНЬ</h1>
+  <p class="subtitle">Оперативная сводка · рубеж: Запорожская степь · статус операции: <span class="codename">НЕИЗВЕСТНО</span></p>
+  <p class="subtitle">3 фрагмент дела. Дальнейшие страницы не обнаружены.</p>
+  <div class="rec-counter"><span class="rec-dot"></span> REC · ПЛЁНКА 09 · ПОСЛЕДНЯЯ ЗАПИСЬ</div>
+</header>
+
+<main class="doc">
+  <p class="redact-note">Финальный фрагмент дела. Текст восстановлен без купюр по решению спецкомиссии.</p>
+
+  <h2 class="month">Октябрь 2026</h2>
+
+  <p class="body-text">Осень пришла не с жёлтыми листьями, а с запахом разлагающейся меди и мокрой гнили. Дожди превратили запорожские степи в чёрное, вязкое болото, но «Движуху» это не остановило. Наоборот. Грязь стала для неё смазкой.</p>
+
+  <p class="body-text">Костяной шпиль над Малой Токмачкой был достроен к середине октября. Двести пятьдесят метров в высоту. Идеальный Двойник, восседающий на его вершине, больше не дёргался. Он врос в этот трон из человеческих позвоночников. <span class="glitch-word">Пал Лаич</span> закончил калибровку своей биологической антенны.</p>
+
+  <p class="body-text">И тогда сигнал изменился.</p>
+
+  <p class="body-text">Это больше не был просто гул на периферии сознания. Инфразвук стал осязаемым. Он вибрировал в лужах, заставлял кровоточить дёсны. Каждую ночь мы слышали этот влажный, многомиллионный шёпот, раздающийся из самой земли:</p>
+
+  <em class="quote">«Скучно… Как же нам скучно… Идите к нам. Киев за три дня… Сохраним единство».</em>
+
+  <p class="body-text">Наши линии обороны начали трещать по швам. Не физически — психически. В соседнем батальоне двое парней ночью молча встали, достали из аптечек хирургические иглы, сшили свои предплечья вместе и пошли в сторону Токмачки, улыбаясь окровавленными ртами. Мы стреляли им по ногам, но они не чувствовали боли. Инфразвуковой вирус пробивал даже беруши.</p>
+
+  <p class="body-text">Крылатые ракеты FP-5 «Фламинго» от FirePoint летали каждую ночь. Это было завораживающее и страшное зрелище: тяжёлые стелс-машины шли на сверхмалой высоте, почти касаясь брюхом верхушек мёртвых деревьев, огибали рельеф и врезались в пульсирующие края мясной горы. Тонны белого фосфора и нанотермита заливали биомассу ослепительным белым огнём. Мясо шипело, лопалось, кричало голосами тысяч сшитых вместе патриотов.</p>
+
+  <p class="body-text">Но «Движуха» начала адаптироваться. Алгоритм <span class="glitch-word">Пал Лаича</span> учился. Поняв тактику крылатых ракет, биомасса начала строить панцирь. Она всасывала в себя тысячи ржавых остовов танков, куски бетона, сгоревшую арматуру — и выталкивала этот шлак на поверхность, сращивая его со своей кожей. «Фламинго» разбивались об эту биомеханическую броню. Урон снижался с каждой неделей. Крылатые ракеты больше не могли пробить толщу плоти, чтобы добраться до центральной нервной системы.</p>
+
+  <p class="body-text">Мы истекали кровью. А впереди была зима.</p>
+
+  <div class="divider">· · ·</div>
+
+  <h2 class="month">Ноябрь 2026</h2>
+
+  <p class="body-text">Ударили первые морозы. Земля встала колом. Мы надеялись, что холод убьёт или хотя бы замедлит эту мерзость. Мы ошибались.</p>
+
+  <p class="body-text">«Движуха» не замерзала. Миллионы сшитых тел, постоянно трущихся друг о друга, генерировали колоссальное количество тепла от ускоренного метаболизма и непрерывного гниения. Над огромной, размером с мегаполис, мясной горой стоял густой, зловонный пар. В тепловизорах она светилась как гигантское, перегретое пятно магмы.</p>
+
+  <p class="body-text">Из-за холода старики на нижних ярусах этой твари, те самые, что плели маскировочные сети из своих жил, начали массово умирать. Но «Движуха» просто переваривала их, превращая в горячую спинномозговую слизь, которая питала Идеального Двойника.</p>
+
+  <p class="body-text">К концу ноября инфразвук добил до окраин Киева. В столице ввели военное положение нового типа: у гражданских начали изымать все колющие и режущие предметы. Люди баррикадировались в квартирах, привязывали себя к батареям, лишь бы не поддаться этому зову «объединения».</p>
+
+  <p class="body-text">Мы ждали конца. Горючего не было. Патроны заканчивались. Мясная гора медленно, неумолимо перекатывалась через замёрзшие посадки, оставляя за собой лишь голую, выжженную кислотой землю.</p>
+
+  <p class="body-text">Но 28 ноября по закрытым каналам связи пришло сообщение из глубоких бункеров FirePoint. Одно слово.</p>
+
+  <em class="quote">«Готово».</em>
+
+  <div class="divider">· · ·</div>
+
+  <h2 class="month">Декабрь 2026. Судный день</h2>
+
+  <p class="body-text">Ночь с 1 на 2 декабря. Температура минус пятнадцать. Над Запорожьем висит тяжёлое, свинцовое небо. Из-за горизонта, источая смрад и пар, надвигается «Движуха». Слышен влажный хруст миллионов ломающихся и срастающихся костей.</p>
+
+  <p class="body-text">В 04:00 утра — в тот самый час, когда четыре года назад <span class="glitch-word">Пал Лаич</span> окончательно пожрал разум оригинала — небеса разорвались.</p>
+
+  <p class="body-text">В отличие от «Фламинго», баллистическая ракета FP-9 не пряталась. Она не кралась над землёй. Она обрушилась сверху, из стратосферы, как копьё мстительного бога.</p>
+
+  <p class="body-text">Мы сидели в траншеях, зажмурив глаза и открыв рты, как требовала инструкция.</p>
+
+  <p class="body-text">Сначала пропал звук. Инфразвуковое давление, давившее на мозги месяцами, внезапно исчезло, сменившись абсолютным, звенящим вакуумом. FP-9 пробила звуковой барьер с такой силой, что ударная волна расшвыряла снег на километры вокруг. Ракета, ведомая ИИ, ударила строго вертикально. Прямо в центр костяного шпиля, в темя Идеального Двойника.</p>
+
+  <p class="body-text">Взрыва не было.</p>
+
+  <p class="body-text">Вспыхнуло второе солнце — ослепительно синее, холодное и яростное. Термобарический плазменный заряд FP-9 сдетонировал. Температура в эпицентре скачкообразно превысила 4500 градусов.</p>
+
+  <p class="body-text">Костяной зиккурат сублимировался мгновенно. Он не разлетелся на куски, он просто превратился в облако белого пара. Плазменный шар ударил вниз, в толщу биомассы, создавая колоссальный вакуумный коллапс.</p>
+
+  <p class="body-text">Я смотрел на это сквозь закопчённый триплекс. Огромная гора мяса, бронированная металлом и стянутая венами, вдруг начала втягиваться внутрь себя. Воздух из разорванных лёгких миллионов тел мгновенно выгорел. Спинномозговая слизь, по которой алгоритм <span class="glitch-word">Пал Лаича</span> передавал приказы, вскипела и испарилась за доли секунды.</p>
+
+  <p class="body-text">Многомиллионный визг оборвался на самой высокой ноте.</p>
+
+  <p class="body-text">Голубая вспышка погасла так же резко, как и появилась. В небо ударил гигантский столб чёрного пепла. И наступила тишина. Настоящая, человеческая тишина. Только ветер завывал над мёртвой степью.</p>
+
+  <p class="body-text">Когда мы осмелились вылезти из окопов, шёл крупный снег. Он падал на то, что ещё недавно было «Движухой». Лишённая единого разума, лишённая согревающей слизи, биомасса начала стремительно замерзать.</p>
+
+  <p class="body-text">Без команды <span class="glitch-word">Пал Лаича</span> сшитые патриоты превратились в простое, мёртвое мясо. Они больше не пытались ползти. Их раны больше не срастались. Мороз сковал эту чудовищную гору, превратив её в гигантский, уродливый ледник из человеческих останков, торчащих кусков ржавых танков и покрытых инеем Z-свастик.</p>
+
+  <p class="body-text">Мы стояли и смотрели, как снег заметает лица тех, кому когда-то было «скучно». Тех, кто хотел «движухи» и «Киева за три дня».</p>
+
+  <p class="body-text">Они наконец-то нашли свой покой. Они остались в Токмачке. Навсегда.</p>
+
+  <p class="body-text">Радио в блиндаже зашипело, пробиваясь сквозь статику, и впервые за долгое время мы услышали нормальный, живой человеческий голос из штаба:</p>
+
+  <em class="quote">«Цель уничтожена. Угроза устранена. Снег идёт по всей стране...»</em>
+
+  <p class="body-text">Спецоперация закончилась. Началась зима. И мы, наконец-то, будем просто жить.</p>
+</main>
+
+<footer class="classified">
+  <span class="big-stamp">КОНЕЦ 3 ФРАГМЕНТА</span>
+  <p>Архив ФСО · «Пал Лаич»</p>
+  <p><a href="dossier-part4.html" style="color:var(--rust); text-decoration:none; border-bottom:1px dashed var(--rust);">→ ФРАГМЕНТ 4: ПРОДОЛЖЕНИЕ ДЕЛА</a></p>
+</footer>
+
+<script>
+  const audio = document.getElementById('bgAudio');
+  const playBtn = document.getElementById('playBtn');
+  const volSlider = document.getElementById('volSlider');
+  const muteBtn = document.getElementById('muteBtn');
+  const settingsBtn = document.getElementById('settingsBtn');
+  const settingsPanel = document.getElementById('settingsPanel');
+  let lastVolume = volSlider.value / 100;
+  audio.volume = lastVolume;
+
+  function tryAutoplay(){
+    const p = audio.play();
+    if (p !== undefined) {
+      p.then(() => {
+        playBtn.textContent = '⏸ ПАУЗА';
+      }).catch(() => {
+        playBtn.textContent = '▶ ВОСПРОИЗВЕСТИ';
+        const startOnInteract = () => {
+          audio.play().then(() => { playBtn.textContent = '⏸ ПАУЗА'; });
+          document.removeEventListener('click', startOnInteract);
+          document.removeEventListener('keydown', startOnInteract);
+        };
+        document.addEventListener('click', startOnInteract, { once:true });
+        document.addEventListener('keydown', startOnInteract, { once:true });
+      });
+    }
+  }
+  tryAutoplay();
+
+  settingsBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    settingsPanel.classList.toggle('open');
+  });
+  document.addEventListener('click', (e) => {
+    if (!settingsPanel.contains(e.target) && e.target !== settingsBtn) {
+      settingsPanel.classList.remove('open');
+    }
+  });
+
+  playBtn.addEventListener('click', () => {
+    if (audio.paused) {
+      audio.play();
+      playBtn.textContent = '⏸ ПАУЗА';
+    } else {
+      audio.pause();
+      playBtn.textContent = '▶ ВОСПРОИЗВЕСТИ';
+    }
+  });
+
+  volSlider.addEventListener('input', () => {
+    const v = volSlider.value / 100;
+    audio.volume = v;
+    lastVolume = v;
+    if (v === 0) {
+      muteBtn.textContent = 'ВКЛ. ЗВУК';
+      muteBtn.classList.add('active');
+    } else {
+      muteBtn.textContent = 'ВЫКЛ. ЗВУК';
+      muteBtn.classList.remove('active');
+    }
+  });
+
+  muteBtn.addEventListener('click', () => {
+    if (audio.volume > 0) {
+      lastVolume = audio.volume;
+      audio.volume = 0;
+      volSlider.value = 0;
+      muteBtn.textContent = 'ВКЛ. ЗВУК';
+      muteBtn.classList.add('active');
+    } else {
+      audio.volume = lastVolume || 0.4;
+      volSlider.value = Math.round(audio.volume * 100);
+      muteBtn.textContent = 'ВЫКЛ. ЗВУК';
+      muteBtn.classList.remove('active');
+    }
+  });
+</script>
+</body>
+</html>
