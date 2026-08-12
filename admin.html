@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>АРХИВ ФСО — панель наблюдения</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#0b0a08; --paper:#c9c0a0; --paper-dim:#8f8a72;
+    --blood:#5e1414; --blood-bright:#8a1f1f; --rust:#a3791f;
+    --phosphor:#3f4a2f; --ink:#151310;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;background:var(--void);}
+  body{font-family:'Courier Prime', monospace; color:var(--paper);}
+  header.slug{
+    max-width:900px; margin:0 auto; padding:56px 24px 24px;
+    border-bottom:1px dashed var(--paper-dim);
+  }
+  .stamp-row{
+    display:flex; justify-content:space-between; align-items:flex-start;
+    font-size:11px; letter-spacing:0.12em; color:var(--paper-dim);
+    text-transform:uppercase; margin-bottom:24px; flex-wrap:wrap; gap:12px;
+  }
+  .stamp{
+    border:2px solid var(--blood-bright); color:var(--blood-bright);
+    padding:4px 10px; transform:rotate(-3deg); font-weight:700;
+    letter-spacing:0.15em; display:inline-block;
+  }
+  h1.title{
+    font-family:'Special Elite', monospace; font-size:clamp(24px,4vw,38px);
+    margin:0 0 8px; text-shadow:2px 0 var(--blood), -1px 0 var(--phosphor);
+  }
+  .subtitle{ font-size:14px; color:var(--paper-dim); margin:0; }
+
+  main{ max-width:900px; margin:0 auto; padding:32px 24px 100px; }
+
+  .grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:16px; margin-bottom:40px; }
+  .stat-card{
+    border:1px solid var(--paper-dim); padding:20px; background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.2));
+  }
+  .stat-card .num{
+    font-family:'Special Elite', monospace; font-size:38px; color:var(--rust);
+    line-height:1;
+  }
+  .stat-card .label{ font-size:11px; letter-spacing:0.1em; color:var(--paper-dim); text-transform:uppercase; margin-top:8px; }
+
+  h2.section{
+    font-family:'Special Elite', monospace; font-size:16px; color:var(--rust);
+    letter-spacing:0.08em; text-transform:uppercase; margin:0 0 14px;
+    border-bottom:1px dashed var(--paper-dim); padding-bottom:8px;
+  }
+
+  table{ width:100%; border-collapse:collapse; margin-bottom:40px; font-size:13px; }
+  th, td{ text-align:left; padding:8px 10px; border-bottom:1px solid rgba(143,138,114,0.25); }
+  th{ color:var(--paper-dim); font-weight:400; text-transform:uppercase; letter-spacing:0.06em; font-size:11px; }
+  tr:hover td{ background:rgba(163,121,31,0.06); }
+
+  .status-line{ font-size:12px; color:var(--paper-dim); margin-bottom:20px; }
+  .status-line.err{ color:var(--blood-bright); }
+  .rec-dot{
+    display:inline-block; width:7px; height:7px; border-radius:50%;
+    background:var(--blood-bright); margin-right:6px;
+  }
+</style>
+</head>
+<body>
+
+<header class="slug">
+  <div class="stamp-row">
+    <span>АРХИВ ФСО · ПАНЕЛЬ НАБЛЮДЕНИЯ</span>
+    <span class="stamp">ДОСТУП ОГРАНИЧЕН</span>
+  </div>
+  <h1 class="title">СТАТИСТИКА ПОСЕЩЕНИЙ</h1>
+  <p class="subtitle">Мониторинг активности на архивных страницах дела «Пал Лаич»</p>
+</header>
+
+<main>
+  <p class="status-line" id="status"><span class="rec-dot"></span>Подключение к архиву данных...</p>
+
+  <div class="grid" id="statCards">
+    <div class="stat-card"><div class="num" id="totalCount">—</div><div class="label">Всего посещений</div></div>
+    <div class="stat-card"><div class="num" id="pageCount">—</div><div class="label">Отслеживаемых страниц</div></div>
+    <div class="stat-card"><div class="num" id="todayCount">—</div><div class="label">За сегодня</div></div>
+  </div>
+
+  <h2 class="section">Разбивка по страницам</h2>
+  <table id="pageTable">
+    <thead><tr><th>Страница</th><th>Посещений</th></tr></thead>
+    <tbody><tr><td colspan="2">Загрузка...</td></tr></tbody>
+  </table>
+
+  <h2 class="section">Последние визиты</h2>
+  <table id="visitsTable">
+    <thead><tr><th>Время</th><th>Страница</th><th>Откуда</th></tr></thead>
+    <tbody><tr><td colspan="3">Загрузка...</td></tr></tbody>
+  </table>
+</main>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+  import {
+    getFirestore, doc, getDoc, collection, getDocs, query, orderBy, limit
+  } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
+
+  // ЗАМЕНИ на тот же firebaseConfig, что и в counter.js
+  const firebaseConfig = {
+    apiKey: "AIzaSyC5rualFmXZ1OBvoHhqPv5X63nwE056AfM",
+    authDomain: "pal-laich.firebaseapp.com",
+    projectId: "pal-laich",
+    storageBucket: "pal-laich.firebasestorage.app",
+    messagingSenderId: "1097966266281",
+    appId: "1:1097966266281:web:1f095ff3c50be95c4146b8",
+    measurementId: "G-DDSN6818D0"
+  };
+
+  const statusEl = document.getElementById('status');
+
+  try {
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // Общий счётчик
+    const totalSnap = await getDoc(doc(db, "stats", "total"));
+    document.getElementById('totalCount').textContent = totalSnap.exists() ? totalSnap.data().count : 0;
+
+    // По страницам
+    const pagesSnap = await getDocs(collection(db, "stats_by_page"));
+    const tbody = document.querySelector('#pageTable tbody');
+    tbody.innerHTML = '';
+    let pageRows = [];
+    pagesSnap.forEach(d => pageRows.push(d.data()));
+    pageRows.sort((a,b) => (b.count||0) - (a.count||0));
+    document.getElementById('pageCount').textContent = pageRows.length;
+    if (pageRows.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="2">Пока нет данных</td></tr>';
+    } else {
+      pageRows.forEach(r => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td>${r.page || '—'}</td><td>${r.count || 0}</td>`;
+        tbody.appendChild(tr);
+      });
+    }
+
+    // Последние визиты
+    const visitsQ = query(collection(db, "visits"), orderBy("time", "desc"), limit(30));
+    const visitsSnap = await getDocs(visitsQ);
+    const vBody = document.querySelector('#visitsTable tbody');
+    vBody.innerHTML = '';
+    let todayCount = 0;
+    const today = new Date(); today.setHours(0,0,0,0);
+
+    if (visitsSnap.empty) {
+      vBody.innerHTML = '<tr><td colspan="3">Пока нет визитов</td></tr>';
+    } else {
+      visitsSnap.forEach(d => {
+        const v = d.data();
+        const t = v.time?.toDate ? v.time.toDate() : null;
+        if (t && t >= today) todayCount++;
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td>${t ? t.toLocaleString('ru-RU') : '—'}</td><td>${v.page || '—'}</td><td>${v.ref || 'напрямую'}</td>`;
+        vBody.appendChild(tr);
+      });
+    }
+    document.getElementById('todayCount').textContent = todayCount;
+
+    statusEl.innerHTML = '<span class="rec-dot"></span>Данные получены';
+  } catch (e) {
+    statusEl.textContent = 'Ошибка подключения к Firebase: проверь firebaseConfig и правила доступа Firestore. ' + e.message;
+    statusEl.classList.add('err');
+    console.error(e);
+  }
+</script>
+</body>
+</html>
